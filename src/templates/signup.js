@@ -1,30 +1,43 @@
 import { createUser } from '../firebase/firebase.js';
 // aqui exportaras las funciones que necesites
 
-// const printLogin = document.getElementById('root');
-
-export const templateRegister = () => {
-  const containerTemplateSignUp = document.createElement("section");
-  containerTemplateSignUp.className = "signUp-container";
+export const templateSignUp = () => {
+  const containerTemplateSignUp = document.createElement('section');
+  containerTemplateSignUp.className = 'signUp-container';
   // aqui tu codigo
-  const login = `
+  containerTemplateSignUp.innerHTML = `
     <main class= "grid-template" >
-    <input type="mail" 
-    placeholder="Ingresa tu Correo" 
+    <div id="signupemail">
+    <input type="email" 
+    placeholder="Ingresa tu Correo"
     id="emailUp" />
+    <img src="https://img.icons8.com/ios/50/000000/love-letter.png" class="icon"/>
+    </div>
+    <div id="signuppassword">
     <input type="password"
-    placeholder="Ingresa tu contraseña"
+    placeholder="Ingresa tu contraseña " 
     id="passwordUp"/>
+    <img src="https://img.icons8.com/ios-filled/50/000000/unlock--v2.png"/ class="icon">
+    </div>
     <button id="register">
-    Crear Cuenta
+    CREAR CUENTA
+    </button>
+    <button id="already">
+    Ya tengo Cuenta
     </button>
     </main>
     `;
-  containerTemplateSignUp.innerHTML = containerTemplateSignUp;
+
   containerTemplateSignUp.querySelector('#register').addEventListener('click', () => {
-    createUser();
-    // console.log(containerTemplateSignUp);
+    const emailSignup = containerTemplateSignUp.querySelector('#emailUp').value;
+    const passwordSignup = containerTemplateSignUp.querySelector('#passwordUp').value;
+    createUser(emailSignup, passwordSignup);
   });
 
-  return login;
+  containerTemplateSignUp.querySelector('#already').addEventListener('click', () => {
+    // mandarnos de regreso
+    window.location.hash = '#/login';
+  });
+
+  return containerTemplateSignUp;
 };
